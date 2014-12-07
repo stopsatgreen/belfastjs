@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <button>start</button>
+    <script>
+    var recog = new webkitSpeechRecognition(),
+        btn = document.querySelector('button');
+    recog.interimResults = true;
+    recog.onresult = function (result) {
+      var thisResult = result.results[0];
+      console.log(thisResult);
+      if (thisResult.isFinal) {
+        console.log('final', thisResult[0].transcript);
+        recog.stop();
+      } else {
+        console.log('interim', thisResult[0].transcript);
+      }
+    }
+    btn.onclick = recog.start();
+    </script>
+  </body>
+</html>

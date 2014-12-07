@@ -64,8 +64,10 @@
 				</section>
 
 				<section>
-					<h2>55% of teens and 41% of adults use voice search every day</h2>
-					<h2>(maybe)</h2>
+					<h1>55% of teens</h1>
+					<h1>41% of adults</h1>
+					<h3>use voice search every day</h3>
+					<h4>(maybe)</h4>
 
 					<aside class="notes">
 						From Google research, but sources not provided. Could be ‘of teens who use, 55% use every day’. http://googleblog.blogspot.co.uk/2014/10/omg-mobile-voice-survey-reveals-teens.html
@@ -73,7 +75,8 @@
 				</section>
 
 				<section>
-					<h2>10% of Baidu search queries are by voice</h2>
+					<h1>10% of Baidu</h1>
+					<h3>search queries are by voice</h3>
 
 					<aside class="notes">
 						Character input is hard, plus high rural illiteracy. http://blogs.wsj.com/digits/2014/11/21/baidus-andrew-ng-on-deep-learning-and-innovation-in-silicon-valley/
@@ -95,15 +98,17 @@
 				<section>
 					<h2>Chrome/Safari</h2>
 					<pre><code data-trim contenteditable>
-var say = new SpeechSynthesisUtterance('Hello World');
+var txt = 'Hello world',
+	say = new SpeechSynthesisUtterance(txt);
 window.speechSynthesis.speak(say);
 					</code></pre>
 				</section>
 
 				<section>
-					<h2>SpeechSynthesisUtterance Attributes</h2>
+					<h3>SpeechSynthesisUtterance Attributes</h3>
 					<pre><code data-trim contenteditable>
-var say = new SpeechSynthesisUtterance('Hello World');
+var txt = 'Hello world',
+	say = new SpeechSynthesisUtterance(txt);
 	say.lang = 'en-GB';
 	say.pitch = 0.75;
 	say.rate = 1.5;
@@ -113,9 +118,10 @@ window.speechSynthesis.speak(say);
 				</section>
 
 				<section>
-					<h2>SpeechSynthesis Methods</h2>
+					<h3>SpeechSynthesis Methods</h3>
 					<pre><code data-trim contenteditable>
-var say = new SpeechSynthesisUtterance('Hello World');
+var txt = 'Hello world',
+	say = new SpeechSynthesisUtterance(txt);
 window.speechSynthesis.speak(say);
 window.speechSynthesis.pause(say);
 window.speechSynthesis.resume(say);
@@ -124,9 +130,10 @@ window.speechSynthesis.cancel(say);
 				</section>
 
 				<section>
-					<h2>SpeechSynthesisUtterance Events</h2>
+					<h3>SpeechSynthesisUtterance Events</h3>
 					<pre><code data-trim contenteditable>
-var say = new SpeechSynthesisUtterance('Hello World');
+var txt = 'Hello world',
+	say = new SpeechSynthesisUtterance(txt);
 	say.onstart = function () {};
 	say.onpause = function () {};
 	say.onresume = function () {};
@@ -138,9 +145,10 @@ window.speechSynthesis.speak(say);
 				</section>
 
 				<section>
-					<h2>SpeechSynthesis Attributes</h2>
+					<h3>SpeechSynthesis Attributes</h3>
 					<pre><code data-trim contenteditable>
-var say = new SpeechSynthesisUtterance('Hello World')
+var txt = 'Hello world',
+	say = new SpeechSynthesisUtterance(txt),
 	speak = window.speechSynthesis.speak(say);
 if (speak.pending) {}
 if (speak.speaking) {}
@@ -172,19 +180,121 @@ if (speak.paused) {}
 				</section>
 
 				<section>
-					<h2>Chrome</h2>
+					<h2>Web Speech API</h2>
+					<pre><code data-trim contenteditable>
+var recog = new SpeechRecognition();
+					</code></pre>
 				</section>
 
 				<section>
-					<h2>Events</h2>
+					<h2>x-browser</h2>
+					<pre><code data-trim contenteditable>
+var speechRecognition = (
+	window.SpeechRecognition ||
+	window.webkitSpeechRecognition
+);
+var recog = new speechRecognition();
+					</code></pre>
 				</section>
 
 				<section>
-					<h2>Properties</h2>
+					<h3>SpeechRecognition Methods</h3>
+					<pre><code data-trim contenteditable>
+var recog = new SpeechRecognition();
+recog.start();
+recog.stop();
+recog.abort();
+					</code></pre>
 				</section>
 
 				<section>
-					<h2>SpeechRecognitionEvent</h2>
+					<h3>SpeechRecognition Events</h3>
+					<pre><code data-trim contenteditable>
+var recog = new SpeechRecognition();
+recog.onstart = function () {};
+recog.onaudiostart = function () {};
+recog.onsoundstart = function () {};
+recog.onspeechstart = function () {};
+recog.onspeechend = function () {};
+recog.onsoundend = function () {};
+recog.onaudioend = function () {};
+recog.onend = function () {};
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>SpeechRecognition Events</h3>
+					<pre><code data-trim contenteditable>
+var recog = new SpeechRecognition();
+recog.onresult = function () {};
+recog.onnomatch = function () {};
+recog.onerror = function () {};
+					</code></pre>
+
+					<aside class="notes">
+						SpeechRecognitionError interface for reporting errors.
+					</aside>
+				</section>
+
+				<section>
+					<h2><abbr title="Minimum Viable Script">MVS</abbr></h2>
+					<pre><code data-trim contenteditable>
+var recog = new SpeechRecognition();
+recog.onresult = function (result) {
+	console.log( results[0][0].transcript );
+};
+btn.onclick = recog.start();
+					</code></pre>
+
+					<aside class="notes">
+						SpeechRecognitionEvent, results list
+					</aside>
+				</section>
+
+				<section>
+					<h2>Interim Results</h2>
+					<pre><code data-trim>
+var recog = new SpeechRecognition();
+recog.interimResults = true;
+recog.onresult = function (result) {
+	var thisResult = result.results[0],
+		transcript = thisResult[0].transcript;
+	if (thisResult.isFinal) {
+		console.log('final', transcript);
+	} else {
+		console.log('interim', transcript);
+	}
+};
+btn.onclick = recog.start();
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Continuous</h2>
+					<pre><code data-trim>
+var recog = new SpeechRecognition();
+recog.continuous = true;
+recog.interimResults = true;
+recog.onresult = function (result) {
+	console.log( result.results[0][0].transcript );
+};
+btn.onclick = function () {
+  if (listening) {
+	recog.stop();
+  } else {
+	 recog.start();
+  }
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>SpeechRTC +</h2>
+					<h2>Web Speech API</h2>
+
+					<aside class="notes">
+						Node online, Web Workers offline. https://wiki.mozilla.org/SpeechRTC_-_Speech_enabling_the_open_web
+					</aside>
 				</section>
 
 				<section>
@@ -194,6 +304,10 @@ if (speak.paused) {}
 						Basically just matching a string / regex
 					</aside>
 				</section>
+
+				<section data-background="images/wit.ai.png" data-background-size="contain"></section>
+
+				<section data-background="images/wit-dashboard.png" data-background-size="contain"></section>
 
 				<section>
 					<h2>Wit.ai</h2>
@@ -207,12 +321,17 @@ if (speak.paused) {}
 					</aside>
 				</section>
 
-				<section>
-					<h2>API.io</h2>
-				</section>
+				<section data-background="images/api.ai.png" data-background-size="contain"></section>
 
 				<section>
 					<h2>JuliusJS</h2>
+
+					<pre><code data-trim>
+var recog = new Julius();
+recog.onrecognition = function (result) {
+	console.log(result);
+}
+					</code></pre>
 				</section>
 
 				<section>
@@ -221,27 +340,6 @@ if (speak.paused) {}
 
 				<section>
 					<h1>The End</h1>
-				</section>
-
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
-
-    var nodes = document.querySelectorAll( selector );
-
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
-
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
-  }
-}
-					</code></pre>
-					<p>Courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
 				</section>
 
 			</div>

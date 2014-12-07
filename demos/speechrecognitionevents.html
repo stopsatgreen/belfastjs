@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    <button>start</button>
+    <script>
+    var speechRecognition = (window.SpeechRecognition || window.webkitSpeechRecognition);
+    var recog = new speechRecognition(),
+        btn = document.querySelector('button');
+    recog.onaudiostart = function () {
+      console.log('audiostart', Date.now());
+    }
+    recog.onsoundstart = function () {
+      console.log('soundstart', Date.now());
+    }
+    recog.onspeechstart = function () {
+      console.log('speechstart', Date.now());
+    }
+    recog.onspeechend = function () {
+      console.log('speechend', Date.now());
+    }
+    recog.onsoundend = function () {
+      console.log('soundend', Date.now());
+    }
+    recog.onaudioend = function () {
+      console.log('audioend', Date.now());
+    }
+    recog.onstart = function () {
+      console.log('start', Date.now());
+    }
+    recog.onend = function () {
+      console.log('end', Date.now());
+    }
+    btn.onclick = function () {
+      console.log('OK');
+      recog.start();
+    }
+    </script>
+  </body>
+</html>

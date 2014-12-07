@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    <button>start</button>
+    <script>
+    var speechRecognition = (window.speechRecognition || window.webkitSpeechRecognition);
+    var recog = new speechRecognition(),
+        btn = document.querySelector('button');
+    recog.onresult = function (result) {
+      console.log(result.results[0][0].transcript);
+    }
+    btn.onclick = function () {
+      recog.start();
+    }
+    </script>
+  </body>
+</html>

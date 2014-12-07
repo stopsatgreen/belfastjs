@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <button>start</button>
+  <script>
+  var btn = document.querySelector('button');
+  var myEmail = 'p_gasston@yahoo.com',
+      myAcctId = 'd07c6bd47f',
+      neoURL = 'https://tts.neospeech.com/rest_1_1.php?method=';
+  function get(url) {
+    return new Promise(function(resolve, reject) {
+      var req = new XMLHttpRequest();
+      req.open('GET', url);
+      req.onload = function() {
+        if (req.status == 200) {
+          resolve(req.response);
+        }
+        else {
+          reject(Error(req.statusText));
+        }
+      };
+
+      req.onerror = function() {
+        reject(Error("Network Error"));
+      };
+
+      req.send();
+    });
+  }
+
+  function getRequest (convNo) {
+    var reqURL = neoURL + 'GetConversionStatus&email=' + myEmail +  '&accountId=' + myAcctId + '&conversionNumber=' + convNo;
+    get(reqURL).then(function (response) {
+      var parser = new DOMParser();
+      var xmlDoc = parser.parseFromString(response, "application/xml");
+      var audioFile = xmlDoc.querySelector('response').getAttribute('downloadUrl');
+      var playFile = new Audio(audioFile);
+      playFile.play();
+    }, function(error) {
+        console.error("Failed!", error);
+    });
+  }
+
+  function makeRequest () {
+    var reqText = 'The+quick+brown+fox+jumps+over+the+lazy+dog'
+    var reqURL = neoURL + 'ConvertSimple&email=' + myEmail + '&accountId=' + myAcctId + '&loginKey=LoginKey&loginPassword=46950b9c0218baf8ccae&voice=TTS_PAUL_DB&outputFormat=FORMAT_WAV&sampleRate=16&text=' + reqText;
+    get(reqURL).then(function(response) {
+      var parser = new DOMParser();
+      var xmlDoc = parser.parseFromString(response, "application/xml");
+      var convNo = xmlDoc.querySelector('response').getAttribute('conversionNumber');
+      getRequest(convNo);
+    }, function(error) {
+      console.error("Failed!", error);
+    });
+  }
+
+  btn.onclick = function () {
+    makeRequest();
+  }
+  </script>
+</body>
+</html>

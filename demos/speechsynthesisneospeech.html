@@ -35,25 +35,37 @@
     var reqURL = neoURL + 'GetConversionStatus&email=' + myEmail +  '&accountId=' + myAcctId + '&conversionNumber=' + convNo;
     get(reqURL).then(function (response) {
       var parser = new DOMParser();
-      var xmlDoc = parser.parseFromString(response, "application/xml");
-      var audioFile = xmlDoc.querySelector('response').getAttribute('downloadUrl');
-      var playFile = new Audio(audioFile);
-      playFile.play();
+      var xmlDoc = parser.parseFromString(response, 'application/xml');
+      xmlDoc = xmlDoc.querySelector('response');
+      console.log(xmlDoc);
+      if (xmlDoc.getAttribute('statusCode') === 1) {
+        var audioFile = xmlDoc.getAttribute('downloadUrl');
+        var playFile = new Audio(audioFile);
+        playFile.play();
+      } else {
+        console.log('Not ready');
+        // getRequest(convNo);
+      }
     }, function(error) {
-        console.error("Failed!", error);
+        console.error('Failed!', error);
     });
   }
 
   function makeRequest () {
-    var reqText = 'The+quick+brown+fox+jumps+over+the+lazy+dog'
-    var reqURL = neoURL + 'ConvertSimple&email=' + myEmail + '&accountId=' + myAcctId + '&loginKey=LoginKey&loginPassword=46950b9c0218baf8ccae&voice=TTS_PAUL_DB&outputFormat=FORMAT_WAV&sampleRate=16&text=' + reqText;
+    var reqOpts = {
+      text : 'The+quick+brown+fox+jumps+over+the+lazy+dog',
+      voice : 'TTS_PAUL_DB'
+    }
+    var reqURL = neoURL + 'ConvertSimple&email=' + myEmail + '&accountId=' + myAcctId + '&loginKey=LoginKey&loginPassword=46950b9c0218baf8ccae&voice=' + reqOpts.voice + '&outputFormat=FORMAT_WAV&sampleRate=16&text=' + reqOpts.text;
+    console.log(reqURL);
     get(reqURL).then(function(response) {
+      console.log(response);
       var parser = new DOMParser();
-      var xmlDoc = parser.parseFromString(response, "application/xml");
+      var xmlDoc = parser.parseFromString(response, 'application/xml');
       var convNo = xmlDoc.querySelector('response').getAttribute('conversionNumber');
       getRequest(convNo);
     }, function(error) {
-      console.error("Failed!", error);
+      console.error('Failed!', error);
     });
   }
 

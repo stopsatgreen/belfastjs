@@ -168,16 +168,30 @@ if (speak.paused) {}
 
 				<section>
 					<h2>Neospeech</h2>
-					<ol>
-						<li>Send the text request</li>
-						<li>Get a unique ID for the request</li>
-						<li>Send the unique ID to check the request status</li>
-						<li>Get the URL of the completed audio file</li>
-					</ol>
+				<pre>https://tts.neospeech.com/rest_1_1.php?method=ConvertSimple&email=mail@example.com&accountId=abcd1234&loginKey=LoginKey&loginPassword=123abc45de&voice=TTS_PAUL_DB&outputFormat=FORMAT_WAV&sampleRate=16&text=Hello+London+JS</pre>
+
+					<pre><code data-trim contenteditable>
+&lt;response resultCode="0" resultString="success" conversionNumber="28" status="Queued" statusCode="1"/&gt;
+					</code></pre>
+
+				<pre>https://tts.neospeech.com/rest_1_1.php?method=GetConversionStatus&email=mail@example.com&accountId=abcd1234&conversionNumber=28</pre>
+
+					<pre><code data-trim contenteditable>
+&lt;response resultCode="0" resultString="success" status="Queued" statusCode="1" downloadUrl="https://tts.neospeech.com/audio/a.php/23841309/d44caf624653/result_26.wav" /&gt;
+					</code></pre>
 				</section>
 
 				<section>
-					<h1>SSML</h1>
+					<h2>SSML</h2>
+
+					<pre><code data-trim contenteditable>
+&lt;speak version="1.0" etc&gt;
+	&lt;p&gt;
+		&lt;s&gt;Hello Belfast.&lt;/s&gt;
+		&lt;s&gt;This is &lt;prosody rate="-20%"&gt;SSML&lt;/prosody&gt;.							&lt;/s&gt;
+	&lt;/p&gt;
+&lt;/speak&gt;
+					</code></pre>
 				</section>
 
 				<section>
@@ -198,11 +212,9 @@ if (speak.paused) {}
 					<pre><code data-trim contenteditable>
 var recog = new SpeechRecognition();
 					</code></pre>
-				</section>
 
-				<section>
-					<h2>x-browser</h2>
-					<pre><code data-trim contenteditable>
+					<h2 class="fragment">x-browser</h2>
+					<pre class="fragment"><code data-trim contenteditable>
 var speechRecognition = (
 	window.SpeechRecognition ||
 	window.webkitSpeechRecognition

@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>Happy Talk - Belfast JS</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -56,7 +56,13 @@
 
 				<section>
 					<h2>(Movie montage)</h2>
-					<h2>(Hodor?)</h2>
+					<ol>
+						<li>Star Trek</li>
+						<li>Star Trek Scotty Mouse (barrier)</li>
+						<li>Her Samantha (synthesis)</li>
+						<li>Moon (recognition)</li>
+						<li>2001 (cognition)</li>
+					</ol>
 
 					<aside class="notes">
 						We are born to talk. Typing is a barrier to communication. Moviemakers know this.
@@ -66,19 +72,22 @@
 				<section>
 					<h1>55% of teens</h1>
 					<h1>41% of adults</h1>
-					<h3>use voice search every day</h3>
-					<h4>(maybe)</h4>
+					<h3>use voice search every day*</h3>
+					<h4>*maybe</h4>
 
 					<aside class="notes">
 						From Google research, but sources not provided. Could be ‘of teens who use, 55% use every day’. http://googleblog.blogspot.co.uk/2014/10/omg-mobile-voice-survey-reveals-teens.html
 					</aside>
 				</section>
 
-				<section>
-					<h2>‘Alexa’, Cortana, Google, Siri</h2>
+				<section data-background="images/amazon.echo.jpg" data-background-size="contain">
+					<h2>Amazon : ‘Alexa’</h2>
+					<h2>Apple : Siri</h2>
+					<h2>Google : Voice Search</h2>
+					<h2>Microsoft : Cortana</h2>
 
 					<aside class="notes">
-						https://www.stonetemple.com/great-knowledge-box-showdown/
+						Google clear winner according to https://www.stonetemple.com/great-knowledge-box-showdown/
 					</aside>
 				</section>
 
@@ -170,15 +179,15 @@ if (speak.paused) {}
 
 				<section>
 					<h2>Neospeech</h2>
-				<pre>https://tts.neospeech.com/rest_1_1.php?method=ConvertSimple&email=mail@example.com&accountId=abcd1234&loginKey=LoginKey&loginPassword=123abc45de&voice=TTS_PAUL_DB&outputFormat=FORMAT_WAV&sampleRate=16&text=Hello+London+JS</pre>
+				<pre>https://tts.neospeech.com/rest_1_1.php?method=<mark>ConvertSimple</mark>&email=mail@example.com&accountId=abcd1234&loginKey=LoginKey&loginPassword=123abc45de&voice=TTS_PAUL_DB&outputFormat=FORMAT_WAV&sampleRate=16&text=<mark>Hello+Belfast+JS</mark></pre>
 
-					<pre><code data-trim contenteditable>
+					<pre class="fragment"><code data-trim class="break-word">
 &lt;response resultCode="0" resultString="success" conversionNumber="28" status="Queued" statusCode="1"/&gt;
 					</code></pre>
 
-				<pre>https://tts.neospeech.com/rest_1_1.php?method=GetConversionStatus&email=mail@example.com&accountId=abcd1234&conversionNumber=28</pre>
+				<pre class="fragment">https://tts.neospeech.com/rest_1_1.php?method=<mark>GetConversionStatus</mark>&email=mail@example.com&accountId=abcd1234&<mark>conversionNumber=28</mark></pre>
 
-					<pre><code data-trim contenteditable>
+					<pre class="fragment"><code data-trim class="break-word">
 &lt;response resultCode="0" resultString="success" status="Queued" statusCode="1" downloadUrl="https://tts.neospeech.com/audio/a.php/23841309/d44caf624653/result_26.wav" /&gt;
 					</code></pre>
 				</section>
@@ -200,7 +209,7 @@ if (speak.paused) {}
 					<h1>Recognition</h1>
 				</section>
 
-				<section>
+				<section data-background="images/startrek.jpg" data-background-size="cover">
 					<h2>Challenges</h2>
 					<ol>
 						<li>Accents (Scottish + Siri)</li>
@@ -237,17 +246,16 @@ recog.abort();
 
 				<section>
 					<h3>SpeechRecognition Events</h3>
-					<pre><code data-trim contenteditable>
-var recog = new SpeechRecognition();
-recog.onstart = function () {};
-recog.onaudiostart = function () {};
-recog.onsoundstart = function () {};
-recog.onspeechstart = function () {};
-recog.onspeechend = function () {};
-recog.onsoundend = function () {};
-recog.onaudioend = function () {};
-recog.onend = function () {};
-					</code></pre>
+					<ol>
+						<li>start</li>
+						<li>audiostart</li>
+						<li>soundstart</li>
+						<li>speechstart</li>
+						<li>speechend</li>
+						<li>soundend</li>
+						<li>audioend</li>
+						<li>end</li>
+					</ol>
 				</section>
 
 				<section>

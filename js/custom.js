@@ -19,12 +19,11 @@ Reveal.addEventListener( 'ready', function( event ) {
     window.speechSynthesis.speak(say);
   };
 
-  var synthesis3 = document.querySelector('#synthesis3 button');
   var syn3txt = 'Hello Belfast J.S. my name is Peter thank you for having me',
       syn3say = new SpeechSynthesisUtterance(syn3txt),
       syn3speak = window.speechSynthesis;
 
-  synthesis3.onclick = function () {
+  document.querySelector('#synthesis3 button').onclick = function () {
     if (syn3speak.paused) {
       syn3speak.resume();
     } else if (syn3speak.speaking) {

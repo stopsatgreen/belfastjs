@@ -151,6 +151,18 @@ window.speechSynthesis.cancel(say);
 				</section>
 
 				<section>
+					<h3>SpeechSynthesis Attributes</h3>
+					<pre><code data-trim contenteditable>
+var txt = 'Hello world',
+	say = new SpeechSynthesisUtterance(txt),
+	speak = window.speechSynthesis.speak(say);
+if (speak.pending) {}
+if (speak.speaking) {}
+if (speak.paused) {}
+					</code></pre>
+				</section>
+
+				<section id="synthesis4">
 					<h3>SpeechSynthesisUtterance Events</h3>
 					<pre><code data-trim contenteditable>
 var txt = 'Hello world',
@@ -163,18 +175,9 @@ var txt = 'Hello world',
 	say.onend = function () {};
 window.speechSynthesis.speak(say);
 					</code></pre>
-				</section>
 
-				<section>
-					<h3>SpeechSynthesis Attributes</h3>
-					<pre><code data-trim contenteditable>
-var txt = 'Hello world',
-	say = new SpeechSynthesisUtterance(txt),
-	speak = window.speechSynthesis.speak(say);
-if (speak.pending) {}
-if (speak.speaking) {}
-if (speak.paused) {}
-					</code></pre>
+					<button class="big">Play</button>
+					<output></output>
 				</section>
 
 				<section>
@@ -260,20 +263,6 @@ recog.abort();
 
 				<section>
 					<h3>SpeechRecognition Events</h3>
-					<ol>
-						<li>start</li>
-						<li>audiostart</li>
-						<li>soundstart</li>
-						<li>speechstart</li>
-						<li>speechend</li>
-						<li>soundend</li>
-						<li>audioend</li>
-						<li>end</li>
-					</ol>
-				</section>
-
-				<section>
-					<h3>SpeechRecognition Events</h3>
 					<pre><code data-trim contenteditable>
 var recog = new SpeechRecognition();
 recog.onresult = function () {};
@@ -286,19 +275,38 @@ recog.onerror = function () {};
 					</aside>
 				</section>
 
-				<section>
+				<section id="recognition1">
 					<h2><abbr title="Minimum Viable Script">MVS</abbr></h2>
 					<pre><code data-trim contenteditable>
 var recog = new SpeechRecognition();
 recog.onresult = function (result) {
-	console.log( results[0][0].transcript );
+	output.textContent = results[0][0].transcript;
 };
 btn.onclick = recog.start();
 					</code></pre>
 
+					<button class="big">Start</button>
+					<output></output>
+
 					<aside class="notes">
 						SpeechRecognitionEvent, results list
 					</aside>
+				</section>
+
+				<section id="recognition2">
+					<h3>SpeechRecognition Events</h3>
+					<ol>
+						<li class="fragment">start</li>
+						<li class="fragment">audiostart</li>
+						<li class="fragment">soundstart</li>
+						<li class="fragment">speechstart</li>
+						<li class="fragment">speechend</li>
+						<li class="fragment">soundend</li>
+						<li class="fragment">audioend</li>
+						<li class="fragment">end</li>
+					</ol>
+
+					<button class="big">Start</button>
 				</section>
 
 				<section>
@@ -307,13 +315,13 @@ btn.onclick = recog.start();
 var recog = new SpeechRecognition();
 recog.interimResults = true;
 recog.onresult = function (result) {
-	var thisResult = result.results[0],
-		transcript = thisResult[0].transcript;
-	if (thisResult.isFinal) {
-		console.log('final', transcript);
-	} else {
-		console.log('interim', transcript);
-	}
+  var thisResult = result.results[0],
+	transcript = thisResult[0].transcript;
+  if (thisResult.isFinal) {
+	finalOutput.textContent = transcript;
+  } else {
+	interimOutput.textContent = transcript;
+  }
 };
 btn.onclick = recog.start();
 					</code></pre>
@@ -326,13 +334,13 @@ var recog = new SpeechRecognition();
 recog.continuous = true;
 recog.interimResults = true;
 recog.onresult = function (result) {
-	console.log( result.results[0][0].transcript );
+	console.log(result.results[0][0].transcript);
 };
 btn.onclick = function () {
   if (listening) {
 	recog.stop();
   } else {
-	 recog.start();
+	recog.start();
   }
 }
 					</code></pre>
@@ -367,7 +375,9 @@ btn.onclick = function () {
 						<li>With direct speech (Node + Web Audio API)</li>
 					</ol>
 
-					<aside class="notes">	http://blog.groupbuddies.com/posts/39-tutorial-html-audio-capture-streaming-to-node-js-no-browser-extensions
+					<aside class="notes">
+						2. Opinionated. Gives you a handful of methods & events, no fine control. http://localhost/~petergasston/prototypes/mucking-about/wit/
+						3. http://blog.groupbuddies.com/posts/39-tutorial-html-audio-capture-streaming-to-node-js-no-browser-extensions
 					</aside>
 				</section>
 

@@ -14,11 +14,13 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/reveal.dev.css">
 		<link rel="stylesheet" href="css/theme/custom.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<link rel="stylesheet" href="microphone/microphone.min.css" id="theme">
 
 		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
 		<script>
@@ -53,6 +55,8 @@
 					<h2>@stopsatgreen</h2>
 					<h2>broken-links.com</h2>
 				</section>
+
+				<section data-background-video="images/startrek-hellocomputer.mp4"></section>
 
 				<section>
 					<h2>(Movie montage)</h2>
@@ -101,6 +105,8 @@
 						http://iaminchina.wordpress.com/2010/04/13/crowded-street-in-xian/
 					</aside>
 				</section>
+
+				<section data-background-video="images/her-samantha.mp4"></section>
 
 				<section>
 					<h1>Synthesis</h1>
@@ -217,6 +223,8 @@ window.speechSynthesis.speak(say);
 &lt;/speak&gt;
 					</code></pre>
 				</section>
+
+				<section data-background-video="images/startrek-library.mp4"></section>
 
 				<section>
 					<h1>Recognition</h1>
@@ -338,7 +346,7 @@ var recog = new SpeechRecognition();
 recog.continuous = true;
 recog.interimResults = true;
 recog.onresult = function (result) {
-	console.log(result.results[0][0].transcript);
+  console.log(result.results[0][0].transcript);
 };
 btn.onclick = function () {
   if (listening) {
@@ -386,7 +394,7 @@ btn.onclick = function () {
 
 				<section id="wit1">
 					<h2 class="trigger">Wit: Microphone.js</h2>
-					<button class="big"></button>
+					<div id="microphone"></div>
 					<output></output>
 
 					<aside class="notes">
@@ -413,9 +421,7 @@ recog.onrecognition = function (result) {
 					</code></pre>
 				</section>
 
-				<section>
-					<h1>Cognition</h1>
-				</section>
+				<section data-background-video="images/2001-hal.mp4"></section>
 
 				<section>
 					<h1>The End</h1>
@@ -426,7 +432,7 @@ recog.onrecognition = function (result) {
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+		<script src="js/reveal.dev.js"></script>
 		<script>
 
 			// Full list of configuration options available here:

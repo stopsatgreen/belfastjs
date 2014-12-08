@@ -1,8 +1,5 @@
 Reveal.addEventListener( 'ready', function( event ) {
 //
-  Reveal.addEventListener( 'slidechanged', function( event ) {
-    console.log(event);
-  });
 
   document.querySelector('#synthesis1 button').onclick = function () {
     var txt = 'Hello Belfast J S',
@@ -114,34 +111,43 @@ Reveal.addEventListener( 'ready', function( event ) {
     rec3.start();
   };
 
-  var wit1 = new Wit.Microphone(document.querySelector('#wit1 button'));
-  wit1.onresult = function (intent, entities) {
-    console.log(entities);
-    var r = kv('intent', intent);
+  function startWit () {
 
-    for (var k in entities) {
-      var e = entities[k];
+    var wit1 = new Wit.Microphone(document.querySelector('#wit1 #microphone'));
+    wit1.onresult = function (intent, entities) {
+      console.log(entities);
+      var r = kv('intent', intent);
 
-      if (!(e instanceof Array)) {
-        r += kv(k, e.value);
-      } else {
-        for (var i = 0; i < e.length; i++) {
-          r += kv(k, e[i].value);
+      for (var k in entities) {
+        var e = entities[k];
+
+        if (!(e instanceof Array)) {
+          r += kv(k, e.value);
+        } else {
+          for (var i = 0; i < e.length; i++) {
+            r += kv(k, e[i].value);
+          }
         }
       }
+
+      document.querySelector('#wit1 output').innerHTML = r;
+    };
+
+    wit1.connect('FMWVZZJC4OQNVUVDLAFHFB3J4KK2NQBX');
+
+    function kv (k, v) {
+      if (toString.call(v) !== '[object String]') {
+        v = JSON.stringify(v);
+      }
+      return k + '=' + v + '\n';
     }
-
-    document.querySelector('#wit1 output').innerHTML = r;
-  };
-
-  wit1.connect('FMWVZZJC4OQNVUVDLAFHFB3J4KK2NQBX');
-
-  function kv (k, v) {
-    if (toString.call(v) !== '[object String]') {
-      v = JSON.stringify(v);
-    }
-    return k + '=' + v + '\n';
   }
+
+  Reveal.addEventListener( 'slidechanged', function( event ) {
+    if (event.currentSlide.id === 'wit1') {
+      startWit();
+    }
+  });
 
 //
 });

@@ -122,7 +122,7 @@ window.speechSynthesis.speak(say);
 				</section>
 
 				<section id="synthesis2">
-					<h3>SpeechSynthesisUtterance Attributes</h3>
+					<h3><abbr>SSU</abbr> Attributes</h3>
 					<pre><code data-trim contenteditable>
 var txt = 'Hello world',
 	say = new SpeechSynthesisUtterance(txt);
@@ -163,7 +163,7 @@ if (speak.paused) {}
 				</section>
 
 				<section id="synthesis4">
-					<h3>SpeechSynthesisUtterance Events</h3>
+					<h3><abbr>SSU</abbr> Events</h3>
 					<pre><code data-trim contenteditable>
 var txt = 'Hello world',
 	say = new SpeechSynthesisUtterance(txt);
@@ -181,7 +181,7 @@ window.speechSynthesis.speak(say);
 				</section>
 
 				<section>
-					<h2>As a service</h2>
+					<h2>Synthesis As A Service</h2>
 					<ol>
 						<li>http://developer.att.com/apis/speech</li>
 						<li>https://ws.neospeech.com/</li>
@@ -210,10 +210,10 @@ window.speechSynthesis.speak(say);
 
 					<pre><code data-trim contenteditable>
 &lt;speak version="1.0" etc&gt;
-	&lt;p&gt;
-		&lt;s&gt;Hello Belfast.&lt;/s&gt;
-		&lt;s&gt;This is &lt;prosody rate="-20%"&gt;SSML&lt;/prosody&gt;.							&lt;/s&gt;
-	&lt;/p&gt;
+  &lt;p&gt;
+	&lt;s&gt;Hello Belfast.&lt;/s&gt;
+	&lt;s&gt;This is &lt;prosody rate="-20%"&gt;SSML&lt;/prosody&gt;.&lt;/s&gt;					&lt;/s&gt;
+  &lt;/p&gt;
 &lt;/speak&gt;
 					</code></pre>
 				</section>
@@ -276,7 +276,7 @@ recog.onerror = function () {};
 				</section>
 
 				<section id="recognition1">
-					<h2><abbr title="Minimum Viable Script">MVS</abbr></h2>
+					<h2 class="trigger"><abbr title="Minimum Viable Script">MVS</abbr></h2>
 					<pre><code data-trim contenteditable>
 var recog = new SpeechRecognition();
 recog.onresult = function (result) {
@@ -285,7 +285,6 @@ recog.onresult = function (result) {
 btn.onclick = recog.start();
 					</code></pre>
 
-					<button class="big">Start</button>
 					<output></output>
 
 					<aside class="notes">
@@ -294,7 +293,7 @@ btn.onclick = recog.start();
 				</section>
 
 				<section id="recognition2">
-					<h3>SpeechRecognition Events</h3>
+					<h3 class="trigger">SpeechRecognition Events</h3>
 					<ol>
 						<li class="fragment">start</li>
 						<li class="fragment">audiostart</li>
@@ -306,7 +305,6 @@ btn.onclick = recog.start();
 						<li class="fragment">end</li>
 					</ol>
 
-					<button class="big">Start</button>
 				</section>
 
 				<section>
@@ -325,6 +323,12 @@ recog.onresult = function (result) {
 };
 btn.onclick = recog.start();
 					</code></pre>
+				</section>
+
+				<section id="recognition3">
+					<h2 class="trigger">Interim Results</h2>
+
+					<output></output>
 				</section>
 
 				<section>
@@ -370,14 +374,29 @@ btn.onclick = function () {
 				<section>
 					<h2>Wit.ai</h2>
 					<ol>
-						<li>With Speech Recognition + text</li>
-						<li>With Microphone.js</li>
-						<li>With direct speech (Node + Web Audio API)</li>
+						<li>Speech API + text</li>
+						<li>Direct speech</li>
 					</ol>
 
 					<aside class="notes">
-						2. Opinionated. Gives you a handful of methods & events, no fine control. http://localhost/~petergasston/prototypes/mucking-about/wit/
-						3. http://blog.groupbuddies.com/posts/39-tutorial-html-audio-capture-streaming-to-node-js-no-browser-extensions
+						2. WebRTC. Opinionated. Gives you a handful of methods & events, no fine control. http://localhost/~petergasston/prototypes/mucking-about/wit/
+						3. WebRTC, Web Audio API, Node. http://blog.groupbuddies.com/posts/39-tutorial-html-audio-capture-streaming-to-node-js-no-browser-extensions
+					</aside>
+				</section>
+
+				<section id="wit1">
+					<h2 class="trigger">Wit: Microphone.js</h2>
+					<button class="big"></button>
+					<output></output>
+
+					<aside class="notes">
+						WebRTC. Opinionated. Gives you a handful of methods & events, no fine control. http://localhost/~petergasston/prototypes/mucking-about/wit/
+					</aside>
+
+				</section>
+
+					<aside class="notes">
+						Basically just matching a string / regex
 					</aside>
 				</section>
 
@@ -437,6 +456,7 @@ recog.onrecognition = function (result) {
 			});
 
 		</script>
+		<script src="microphone/microphone.min.js"></script>
 		<script src="js/custom.js"></script>
 	</body>
 </html>

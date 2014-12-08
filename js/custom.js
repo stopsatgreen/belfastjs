@@ -69,7 +69,7 @@ Reveal.addEventListener( 'ready', function( event ) {
     document.querySelector('#recognition1 output').textContent = result.results[0][0].transcript;
     rec1.stop();
   };
-  document.querySelector('#recognition1 button').onclick = function () {
+  document.querySelector('#recognition1 .trigger').onclick = function () {
     rec1.start();
   };
 
@@ -98,9 +98,50 @@ Reveal.addEventListener( 'ready', function( event ) {
   rec2.onend = function () {
     Reveal.nextFragment();
   };
-  document.querySelector('#recognition2 button').onclick = function () {
+  document.querySelector('#recognition2 .trigger').onclick = function () {
     rec2.start();
   };
+
+  var rec3 = new webkitSpeechRecognition();
+  rec3.interimResults = true;
+  rec3.onresult = function (result) {
+    if (result.results[0].isFinal) {
+      rec3.stop();
+    }
+    document.querySelector('#recognition3 output').textContent = result.results[0][0].transcript;
+  };
+  document.querySelector('#recognition3 .trigger').onclick = function () {
+    rec3.start();
+  };
+
+  var wit1 = new Wit.Microphone(document.querySelector('#wit1 button'));
+  wit1.onresult = function (intent, entities) {
+    console.log(entities);
+    var r = kv('intent', intent);
+
+    for (var k in entities) {
+      var e = entities[k];
+
+      if (!(e instanceof Array)) {
+        r += kv(k, e.value);
+      } else {
+        for (var i = 0; i < e.length; i++) {
+          r += kv(k, e[i].value);
+        }
+      }
+    }
+
+    document.querySelector('#wit1 output').innerHTML = r;
+  };
+
+  wit1.connect('FMWVZZJC4OQNVUVDLAFHFB3J4KK2NQBX');
+
+  function kv (k, v) {
+    if (toString.call(v) !== '[object String]') {
+      v = JSON.stringify(v);
+    }
+    return k + '=' + v + '\n';
+  }
 
 //
 });

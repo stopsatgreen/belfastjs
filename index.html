@@ -104,18 +104,24 @@
 
 				<section>
 					<h1>Synthesis</h1>
+
+					<aside class="notes">
+						Long history of replicating voice with sound (Brazen Heads back to ~12th C.) but first systems emerged in 1960s. Bell Labs 1961 sang Daisy Bell, coincidentally Arthur C. Clarke was visiting. Today Stephen Hawking uses system with old voice as it’s ‘his’.
+					</aside>
 				</section>
 
-				<section>
+				<section id="synthesis1">
 					<h2>Chrome/Safari</h2>
-					<pre><code data-trim contenteditable>
+					<pre><code data-trim>
 var txt = 'Hello world',
 	say = new SpeechSynthesisUtterance(txt);
 window.speechSynthesis.speak(say);
 					</code></pre>
+
+					<button class="big">Play</button>
 				</section>
 
-				<section>
+				<section id="synthesis2">
 					<h3>SpeechSynthesisUtterance Attributes</h3>
 					<pre><code data-trim contenteditable>
 var txt = 'Hello world',
@@ -126,9 +132,11 @@ var txt = 'Hello world',
 	say.volume = 0.5;
 window.speechSynthesis.speak(say);
 					</code></pre>
+
+					<button class="big">Play</button>
 				</section>
 
-				<section>
+				<section id="synthesis3">
 					<h3>SpeechSynthesis Methods</h3>
 					<pre><code data-trim contenteditable>
 var txt = 'Hello world',
@@ -138,6 +146,8 @@ window.speechSynthesis.pause(say);
 window.speechSynthesis.resume(say);
 window.speechSynthesis.cancel(say);
 					</code></pre>
+
+					<button class="big">Play</button>
 				</section>
 
 				<section>
@@ -182,13 +192,13 @@ if (speak.paused) {}
 				<pre>https://tts.neospeech.com/rest_1_1.php?method=<mark>ConvertSimple</mark>&email=mail@example.com&accountId=abcd1234&loginKey=LoginKey&loginPassword=123abc45de&voice=TTS_PAUL_DB&outputFormat=FORMAT_WAV&sampleRate=16&text=<mark>Hello+Belfast+JS</mark></pre>
 
 					<pre class="fragment"><code data-trim class="break-word">
-&lt;response resultCode="0" resultString="success" conversionNumber="28" status="Queued" statusCode="1"/&gt;
+&lt;response conversionNumber="28" resultCode="0" resultString="success" status="Queued" statusCode="1"/&gt;
 					</code></pre>
 
 				<pre class="fragment">https://tts.neospeech.com/rest_1_1.php?method=<mark>GetConversionStatus</mark>&email=mail@example.com&accountId=abcd1234&<mark>conversionNumber=28</mark></pre>
 
 					<pre class="fragment"><code data-trim class="break-word">
-&lt;response resultCode="0" resultString="success" status="Queued" statusCode="1" downloadUrl="https://tts.neospeech.com/audio/a.php/23841309/d44caf624653/result_26.wav" /&gt;
+&lt;response statusCode="1" downloadUrl="https://tts.neospeech.com/audio/a.php/23841309/d44caf624653/result_26.wav" resultCode="0" resultString="success" status="Queued"/&gt;
 					</code></pre>
 				</section>
 
@@ -207,6 +217,10 @@ if (speak.paused) {}
 
 				<section>
 					<h1>Recognition</h1>
+
+					<aside class="notes">
+						Developed by Bell in 1952. Could recognise numbers spoken by one person. [Get screengrab / find picture]. 1970s Carnegie Mellon HARPY could recognise 1,000 words. 1980s Hidden Markov method [Teddy Ruxpin]. Chops waves into phonemes and attempts to form words.
+					</aside>
 				</section>
 
 				<section data-background="images/startrek.jpg" data-background-size="cover">
@@ -384,7 +398,6 @@ recog.onrecognition = function (result) {
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.min.js"></script>
-
 		<script>
 
 			// Full list of configuration options available here:
@@ -414,6 +427,6 @@ recog.onrecognition = function (result) {
 			});
 
 		</script>
-
+		<script src="js/custom.js"></script>
 	</body>
 </html>

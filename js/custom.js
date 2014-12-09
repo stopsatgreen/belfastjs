@@ -145,9 +145,19 @@ Reveal.addEventListener( 'ready', function( event ) {
     }
   }
 
-  Reveal.addEventListener( 'slidechanged', function( event ) {
+  function fragWith (fragEvt) {
+    Reveal.addEventListener('fragmentshown', function( fragEvt ) {
+      if (fragEvt.fragment.localName === 'span') {
+        Reveal.nextFragment();
+      }
+    });
+  }
+
+  Reveal.addEventListener('slidechanged', function( event ) {
     if (event.currentSlide.id === 'wit1') {
       startWit();
+    } else if (event.currentSlide.id === 'stat1') {
+      fragWith(event);
     }
   });
 

@@ -45,7 +45,7 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 
-				<section>
+				<section data-background="images/hal-9000.jpg" data-background-size="cover">
 					<h1>Happy Talk</h1>
 					<h2>BelfastJS, 10/12/14</h2>
 				</section>
@@ -62,17 +62,6 @@
 					</aside>
 				</section>
 
-				<section>
-					<h1>55% of teens</h1>
-					<h1>41% of adults</h1>
-					<h3>use voice search every day*</h3>
-					<h4>*maybe</h4>
-
-					<aside class="notes">
-						From Google research, but sources not provided. Could be ‘of teens who use, 55% use every day’. http://googleblog.blogspot.co.uk/2014/10/omg-mobile-voice-survey-reveals-teens.html
-					</aside>
-				</section>
-
 				<section data-background="images/amazon.echo.jpg" data-background-size="contain">
 					<h2>Amazon : ‘Alexa’</h2>
 					<h2>Apple : Siri</h2>
@@ -81,6 +70,17 @@
 
 					<aside class="notes">
 						Google clear winner according to https://www.stonetemple.com/great-knowledge-box-showdown/
+					</aside>
+				</section>
+
+				<section id="stat1">
+					<h1>55% of teens</h1>
+					<h1>41% of adults</h1>
+					<h3>use voice search every day<span class="fragment">*</span></h3>
+					<h4 class="fragment">*maybe</h4>
+
+					<aside class="notes">
+						From Google research, but sources not provided. Could be ‘of teens who use, 55% use every day’. http://googleblog.blogspot.co.uk/2014/10/omg-mobile-voice-survey-reveals-teens.html
 					</aside>
 				</section>
 
@@ -309,6 +309,8 @@ btn.onclick = recog.start();
 					<pre><code data-trim>
 var recog = new SpeechRecognition();
 recog.interimResults = true;
+					</code></pre>
+					<pre class="fragment"><code data-trim>
 recog.onresult = function (result) {
   var thisResult = result.results[0],
 	transcript = thisResult[0].transcript;
@@ -336,6 +338,8 @@ recog.continuous = true;
 recog.onresult = function (result) {
   output.textContent = result.results[0][0].transcript;
 };
+					</code></pre>
+					<pre class="fragment"><code data-trim>
 btn.onclick = function () {
   if (listening) {
 	recog.stop();

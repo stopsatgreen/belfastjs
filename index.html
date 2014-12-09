@@ -56,18 +56,7 @@
 					<h2>broken-links.com</h2>
 				</section>
 
-				<section data-background-video="images/startrek-hellocomputer.mp4"></section>
-
-				<section>
-					<h2>(Movie montage)</h2>
-					<ol>
-						<li>Star Trek</li>
-						<li>Star Trek Scotty Mouse (barrier)</li>
-						<li>Her Samantha (synthesis)</li>
-						<li>Moon (recognition)</li>
-						<li>2001 (cognition)</li>
-					</ol>
-
+				<section data-background-video="images/startrek-hellocomputer.mp4">
 					<aside class="notes">
 						We are born to talk. Typing is a barrier to communication. Moviemakers know this.
 					</aside>
@@ -106,10 +95,8 @@
 					</aside>
 				</section>
 
-				<section data-background-video="images/her-samantha.mp4"></section>
-
-				<section>
-					<h1>Synthesis</h1>
+				<section data-background-video="images/her-samantha.mp4">
+					<h1 class="fragment">Synthesis</h1>
 
 					<aside class="notes">
 						Long history of replicating voice with sound (Brazen Heads back to ~12th C.) but first systems emerged in 1960s. Bell Labs 1961 sang Daisy Bell, coincidentally Arthur C. Clarke was visiting. Today Stephen Hawking uses system with old voice as it’s ‘his’.
@@ -173,12 +160,12 @@ if (speak.paused) {}
 					<pre><code data-trim contenteditable>
 var txt = 'Hello world',
 	say = new SpeechSynthesisUtterance(txt);
-	say.onstart = function () {};
-	say.onpause = function () {};
-	say.onresume = function () {};
-	say.oncancel = function () {};
-	say.onerror = function () {};
-	say.onend = function () {};
+  say.onstart = function () {};
+  say.onpause = function () {};
+  say.onresume = function () {};
+  say.oncancel = function () {};
+  say.onerror = function () {};
+  say.onend = function () {};
 window.speechSynthesis.speak(say);
 					</code></pre>
 
@@ -224,10 +211,8 @@ window.speechSynthesis.speak(say);
 					</code></pre>
 				</section>
 
-				<section data-background-video="images/startrek-library.mp4"></section>
-
-				<section>
-					<h1>Recognition</h1>
+				<section data-background-video="images/startrek-library.mp4">
+					<h1 class="fragment reverse-text">Recognition</h1>
 
 					<aside class="notes">
 						Developed by Bell in 1952. Could recognise numbers spoken by one person. [Get screengrab / find picture]. 1970s Carnegie Mellon HARPY could recognise 1,000 words. 1980s Hidden Markov method [Teddy Ruxpin]. Chops waves into phonemes and attempts to form words.
@@ -237,10 +222,14 @@ window.speechSynthesis.speak(say);
 				<section data-background="images/startrek.jpg" data-background-size="cover">
 					<h2>Challenges</h2>
 					<ol>
-						<li>Accents (Scottish + Siri)</li>
-						<li>Multiple users</li>
-						<li>Multiple languages</li>
+						<li class="fragment">Accents</li>
+						<li class="fragment">Multiple users</li>
+						<li class="fragment">Multiple languages</li>
 					</ol>
+
+					<aside class="notes">
+						Scottish + Siri
+					</aside>
 				</section>
 
 				<section>
@@ -344,9 +333,8 @@ btn.onclick = recog.start();
 					<pre><code data-trim>
 var recog = new SpeechRecognition();
 recog.continuous = true;
-recog.interimResults = true;
 recog.onresult = function (result) {
-  console.log(result.results[0][0].transcript);
+  output.textContent = result.results[0][0].transcript;
 };
 btn.onclick = function () {
   if (listening) {
@@ -380,20 +368,18 @@ btn.onclick = function () {
 				<section data-background="images/wit-dashboard.png" data-background-size="contain"></section>
 
 				<section>
-					<h2>Wit.ai</h2>
+					<h2>Wit.ai : Node API</h2>
 					<ol>
-						<li>Speech API + text</li>
-						<li>Direct speech</li>
+						<li>Web Speech API + text</li>
+						<li class="fragment">Direct speech : GuM, Web Audio API</li>
 					</ol>
 
-					<aside class="notes">
-						2. WebRTC. Opinionated. Gives you a handful of methods & events, no fine control. http://localhost/~petergasston/prototypes/mucking-about/wit/
-						3. WebRTC, Web Audio API, Node. http://blog.groupbuddies.com/posts/39-tutorial-html-audio-capture-streaming-to-node-js-no-browser-extensions
+					<aside class="notes"> http://blog.groupbuddies.com/posts/39-tutorial-html-audio-capture-streaming-to-node-js-no-browser-extensions
 					</aside>
 				</section>
 
 				<section id="wit1">
-					<h2 class="trigger">Wit: Microphone.js</h2>
+					<h2 class="trigger">Wit.ai : Microphone.js</h2>
 					<div id="microphone"></div>
 					<output></output>
 

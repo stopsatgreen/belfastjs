@@ -111,6 +111,7 @@ var txt = 'Hello world',
 window.speechSynthesis.speak(say);
 					</code></pre>
 
+					<input class="big" value="Hello Belfast J.S.">
 					<button class="big">Play</button>
 				</section>
 
@@ -160,12 +161,12 @@ if (speak.paused) {}
 					<pre><code data-trim contenteditable>
 var txt = 'Hello world',
 	say = new SpeechSynthesisUtterance(txt);
-  say.onstart = function () {};
-  say.onpause = function () {};
-  say.onresume = function () {};
-  say.oncancel = function () {};
-  say.onerror = function () {};
-  say.onend = function () {};
+say.onstart = function () {};
+say.onpause = function () {};
+say.onresume = function () {};
+say.oncancel = function () {};
+say.onerror = function () {};
+say.onend = function () {};
 window.speechSynthesis.speak(say);
 					</code></pre>
 
@@ -196,6 +197,13 @@ window.speechSynthesis.speak(say);
 					<pre class="fragment"><code data-trim class="break-word">
 &lt;response statusCode="1" downloadUrl="https://tts.neospeech.com/audio/a.php/23841309/d44caf624653/result_26.wav" resultCode="0" resultString="success" status="Queued"/&gt;
 					</code></pre>
+				</section>
+
+				<section id="neospeech">
+					<h2>(Neospeech demo)</h2>
+
+					<button class="big">Play</button>
+					<div id="neo-result"></div>
 				</section>
 
 				<section>
@@ -391,11 +399,6 @@ btn.onclick = function () {
 						WebRTC. Opinionated. Gives you a handful of methods & events, no fine control. http://localhost/~petergasston/prototypes/mucking-about/wit/
 					</aside>
 
-				</section>
-
-					<aside class="notes">
-						Basically just matching a string / regex
-					</aside>
 				</section>
 
 				<section data-background="images/api.ai.png" data-background-size="contain"></section>

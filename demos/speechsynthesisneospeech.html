@@ -38,7 +38,7 @@
       var xmlDoc = parser.parseFromString(response, 'application/xml');
       xmlDoc = xmlDoc.querySelector('response');
       console.log(xmlDoc);
-      if (xmlDoc.getAttribute('statusCode') === 1) {
+      if (xmlDoc.getAttribute('statusCode') !== 0) {
         var audioFile = xmlDoc.getAttribute('downloadUrl');
         var playFile = new Audio(audioFile);
         playFile.play();

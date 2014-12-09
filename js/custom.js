@@ -2,7 +2,7 @@ Reveal.addEventListener( 'ready', function( event ) {
 //
 
   document.querySelector('#synthesis1 button').onclick = function () {
-    var txt = 'Hello Belfast J.S.',
+    var txt = document.querySelector('#synthesis1 input').value,
         say = new SpeechSynthesisUtterance(txt);
     window.speechSynthesis.speak(say);
   };
@@ -23,9 +23,9 @@ Reveal.addEventListener( 'ready', function( event ) {
 
   document.querySelector('#synthesis3 button').onclick = function () {
     if (syn3speak.paused) {
-      syn3speak.resume();
+      syn3speak.resume(syn3say);
     } else if (syn3speak.speaking) {
-      syn3speak.pause();
+      syn3speak.pause(syn3say);
     } else {
       syn3speak.speak(syn3say);
     }
@@ -61,6 +61,78 @@ Reveal.addEventListener( 'ready', function( event ) {
     } else {
       syn4speak.speak(syn4say);
     }
+  };
+
+  // NEOSPEECH DEMO
+
+  var neoEmail = 'p_gasston@yahoo.com',
+      neoAcctId = 'd07c6bd47f',
+      neoURL = 'https://tts.neospeech.com/rest_1_1.php?method=';
+  var neoOut = document.getElementById('neo-result');
+  function get(url) {
+    return new Promise(function(resolve, reject) {
+      var req = new XMLHttpRequest();
+      req.open('GET', url);
+      req.onload = function() {
+        if (req.status == 200) {
+          resolve(req.response);
+        }
+        else {
+          reject(Error(req.statusText));
+        }
+      };
+
+      req.onerror = function() {
+        reject(Error("Network Error"));
+      };
+
+      req.send();
+    });
+  }
+
+  function neoGetResponse (convNo) {
+    var reqURL = neoURL + 'GetConversionStatus&email=' + neoEmail +  '&accountId=' + neoAcctId + '&conversionNumber=' + convNo;
+    get(reqURL).then(function (response) {
+      var respPara = document.createElement('p');
+      respPara.textContent = response;
+      neoOut.appendChild(respPara);
+      var parser = new DOMParser();
+      var xmlDoc = parser.parseFromString(response, 'application/xml');
+      xmlDoc = xmlDoc.querySelector('response');
+      if (xmlDoc.getAttribute('statusCode') !== 0) {
+        var audioFile = xmlDoc.getAttribute('downloadUrl');
+        var playFile = new Audio(audioFile);
+        playFile.play();
+      } else {
+        console.log('Not ready');
+        // neoGetResponse(convNo);
+      }
+    }, function(error) {
+      console.error('Failed!', error);
+    });
+  }
+
+  function neoSendRequest () {
+    var reqOpts = {
+      text : 'The+quick+brown+fox+jumps+over+the+lazy+dog',
+      voice : 'TTS_PAUL_DB'
+    };
+    var reqURL = neoURL + 'ConvertSimple&email=' + neoEmail + '&accountId=' + neoAcctId + '&loginKey=LoginKey&loginPassword=46950b9c0218baf8ccae&voice=' + reqOpts.voice + '&outputFormat=FORMAT_WAV&sampleRate=16&text=' + reqOpts.text;
+    get(reqURL).then(function(response) {
+      var reqPara = document.createElement('p');
+      reqPara.textContent = response;
+      neoOut.appendChild(reqPara);
+      var parser = new DOMParser();
+      var xmlDoc = parser.parseFromString(response, 'application/xml');
+      var convNo = xmlDoc.querySelector('response').getAttribute('conversionNumber');
+      neoGetResponse(convNo);
+    }, function(error) {
+      console.error('Failed!', error);
+    });
+  }
+
+  document.querySelector('#neospeech button').onclick = function () {
+    neoSendRequest();
   };
 
   var rec1 = new webkitSpeechRecognition();

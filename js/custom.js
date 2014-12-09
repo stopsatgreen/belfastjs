@@ -2,13 +2,13 @@ Reveal.addEventListener( 'ready', function( event ) {
 //
 
   document.querySelector('#synthesis1 button').onclick = function () {
-    var txt = 'Hello Belfast J S',
+    var txt = 'Hello Belfast J.S.',
         say = new SpeechSynthesisUtterance(txt);
     window.speechSynthesis.speak(say);
   };
 
   document.querySelector('#synthesis2 button').onclick = function () {
-    var txt = 'Hello Belfast J S',
+    var txt = 'Hello Belfast J.S.',
     say = new SpeechSynthesisUtterance(txt);
     say.lang = 'en-GB';
     say.pitch = 0.75;
@@ -16,9 +16,10 @@ Reveal.addEventListener( 'ready', function( event ) {
     window.speechSynthesis.speak(say);
   };
 
-  var syn3txt = 'Hello Belfast J.S. my name is Peter thank you for having me',
+  var syn3txt = 'Hello Belfast J.S. my name is Peter. Thank you for having me.',
       syn3say = new SpeechSynthesisUtterance(syn3txt),
       syn3speak = window.speechSynthesis;
+  syn3say.lang = 'en-GB';
 
   document.querySelector('#synthesis3 button').onclick = function () {
     if (syn3speak.paused) {
@@ -30,10 +31,11 @@ Reveal.addEventListener( 'ready', function( event ) {
     }
   };
 
-  var syn4txt = 'Hello Belfast J.S. my name is Peter thank you for having me',
+  var syn4txt = 'Hello Belfast J.S. my name is Peter. Thank you for having me!',
       syn4out = document.querySelector('#synthesis4 output'),
       syn4say = new SpeechSynthesisUtterance(syn4txt),
       syn4speak = window.speechSynthesis;
+  syn4say.lang = 'en-GB';
 
   syn4say.onstart = function () {
     syn4out.textContent = 'Start';

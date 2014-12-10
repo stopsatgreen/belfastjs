@@ -55,9 +55,9 @@ Reveal.addEventListener( 'ready', function( event ) {
 
   document.querySelector('#synthesis4 button').onclick = function () {
     if (syn4speak.paused) {
-      syn4speak.resume();
+      syn4speak.resume(syn4say);
     } else if (syn4speak.speaking) {
-      syn4speak.pause();
+      syn4speak.pause(syn4say);
     } else {
       syn4speak.speak(syn4say);
     }
@@ -185,37 +185,59 @@ Reveal.addEventListener( 'ready', function( event ) {
     rec3.start();
   };
 
-  function startWit () {
+  // WIT.AI DEMO
 
-    var wit1 = new Wit.Microphone(document.querySelector('#wit1 #microphone'));
-    wit1.onresult = function (intent, entities) {
-      console.log(entities);
-      var r = kv('intent', intent);
+  function kv (k, v) {
+    if (toString.call(v) !== '[object String]') {
+      v = JSON.stringify(v);
+    }
+    return k + '=' + v + '\n';
+  }
 
-      for (var k in entities) {
-        var e = entities[k];
+  function witResults (intent, entities) {
+    var r = kv('intent', intent);
 
-        if (!(e instanceof Array)) {
-          r += kv(k, e.value);
-        } else {
-          for (var i = 0; i < e.length; i++) {
-            r += kv(k, e[i].value);
-          }
+    for (var k in entities) {
+      var e = entities[k];
+
+      if (!(e instanceof Array)) {
+        r += kv(k, e.value);
+      } else {
+        for (var i = 0; i < e.length; i++) {
+          r += kv(k, e[i].value);
         }
       }
+      return r;
+    }
+  }
 
+  function startWit1 () {
+
+    var wit1 = new Wit.Microphone(document.querySelector('#wit1 #mic1'));
+
+    wit1.onresult = function (intent, entities) {
+      var r = witResults(intent, entities);
       document.querySelector('#wit1 output').innerHTML = r;
     };
 
     wit1.connect('FMWVZZJC4OQNVUVDLAFHFB3J4KK2NQBX');
-
-    function kv (k, v) {
-      if (toString.call(v) !== '[object String]') {
-        v = JSON.stringify(v);
-      }
-      return k + '=' + v + '\n';
-    }
   }
+
+  function startWit2 () {
+
+    var wit2 = new Wit.Microphone(document.querySelector('#wit2 #mic2'));
+
+    wit2.onresult = function (intent, entities) {
+      console.log(entities.contact.value);
+      var txt = 'Hello, ' + entities.contact.value,
+          say = new SpeechSynthesisUtterance(txt);
+      window.speechSynthesis.speak(say);
+    };
+
+    wit2.connect('FMWVZZJC4OQNVUVDLAFHFB3J4KK2NQBX');
+  }
+
+  // EVENTS
 
   function fragWith (fragEvt) {
     Reveal.addEventListener('fragmentshown', function( fragEvt ) {
@@ -227,7 +249,9 @@ Reveal.addEventListener( 'ready', function( event ) {
 
   Reveal.addEventListener('slidechanged', function( event ) {
     if (event.currentSlide.id === 'wit1') {
-      startWit();
+      startWit1();
+    } else if (event.currentSlide.id === 'wit2') {
+      startWit2();
     } else if (event.currentSlide.id === 'stat1') {
       fragWith(event);
     }

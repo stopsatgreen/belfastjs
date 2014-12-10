@@ -375,6 +375,19 @@ btn.onclick = function () {
 					</aside>
 				</section>
 
+				<section>
+					<h2>JuliusJS</h2>
+
+					<pre><code data-trim>
+						var recog = new Julius();
+						recog.onrecognition = function (result) {
+							console.log(result);
+						}
+					</code></pre>
+				</section>
+
+				<section data-background="images/api.ai.png" data-background-size="contain"></section>
+
 				<section data-background="images/wit.ai.png" data-background-size="contain"></section>
 
 				<section data-background="images/wit-dashboard.png" data-background-size="contain"></section>
@@ -392,7 +405,7 @@ btn.onclick = function () {
 
 				<section id="wit1">
 					<h2 class="trigger">Wit.ai : Microphone.js</h2>
-					<div id="microphone"></div>
+					<div id="mic1" class="microphone"></div>
 					<output></output>
 
 					<aside class="notes">
@@ -401,17 +414,9 @@ btn.onclick = function () {
 
 				</section>
 
-				<section data-background="images/api.ai.png" data-background-size="contain"></section>
-
-				<section>
-					<h2>JuliusJS</h2>
-
-					<pre><code data-trim>
-var recog = new Julius();
-recog.onrecognition = function (result) {
-	console.log(result);
-}
-					</code></pre>
+				<section id="wit2">
+					<h2 class="trigger">Wit.ai : Response</h2>
+					<div id="mic2" class="microphone"></div>
 				</section>
 
 				<section data-background-video="images/2001-hal.mp4"></section>

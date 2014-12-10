@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../microphone/microphone.min.css">
+    <style>
+    #microphone { margin: 0 auto; }
+    </style>
+  </head>
+  <body class="reveal">
+    <div id="microphone"></div>
+    <script src="../microphone/microphone.min.js"></script>
+    <script>
+    function kv (k, v) {
+      if (toString.call(v) !== '[object String]') {
+        v = JSON.stringify(v);
+      }
+      return k + '=' + v + '\n';
+    }
+
+    function witResults (intent, entities) {
+      var r = kv('intent', intent);
+
+      for (var k in entities) {
+        var e = entities[k];
+
+        if (!(e instanceof Array)) {
+          r += kv(k, e.value);
+        } else {
+          for (var i = 0; i < e.length; i++) {
+            r += kv(k, e[i].value);
+          }
+        }
+        return r;
+      }
+    }
+
+    var wit = new Wit.Microphone(document.querySelector('#microphone'));
+
+    wit.onresult = function (intent, entities) {
+      console.log(intent, entities);
+      // var r = witResults(intent, entities);
+      // document.querySelector('#wit output').innerHTML = r;
+    };
+
+    wit.connect('XUGW2BB6MIP4CDPQS2K7U7M53TMZTQGK');
+    </script>
+  </body>
+</html>
